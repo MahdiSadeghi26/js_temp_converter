@@ -18,9 +18,9 @@ change.addEventListener("click", scaleChanger);
 function tempConverter(e) {
   let tempNumber = inputNumber.value;
   result.style.display = "block";
-  if (!inputNumber.value) {
+  if (!inputNumber.value || typeof inputNumber.value!=='number') {
     result.style.color = "red";
-    result.innerHTML = "Empty Value!";
+    result.innerHTML = "Invalid Value!";
     return;
   }
   if (status == "Convert ℃ to ℉") {
