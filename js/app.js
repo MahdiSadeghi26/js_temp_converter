@@ -13,16 +13,13 @@ let flag = false;
 convert.addEventListener("click", tempConverter);
 reset.addEventListener("click", resetButton);
 change.addEventListener("click", scaleChanger);
+inputNumber.addEventListener("keypress", preventingNotNumberInput);
+window.addEventListener("load", () => (inputNumber.value = ""));
 // functions
 
 function tempConverter(e) {
-  let tempNumber = inputNumber.value;
+  let tempNumber = Number(inputNumber.value);
   result.style.display = "block";
-  if (!inputNumber.value || typeof inputNumber.value!=='number') {
-    result.style.color = "red";
-    result.innerHTML = "Invalid Value!";
-    return;
-  }
   if (status == "Convert ℃ to ℉") {
     let outputC = (tempNumber * 9) / 5 + 32;
     result.style.color = "white";
@@ -32,7 +29,16 @@ function tempConverter(e) {
     result.innerHTML = `${tempNumber}℉ = ${Math.floor(celsius)}℃`;
   }
 }
-
+function preventingNotNumberInput(e) {
+  if (e.which < 48 || e.which > 57) {
+    e.preventDefault();
+    result.style.cssText = "display:block;color:red";
+    result.innerHTML = "Not a Number";
+    setTimeout(() => {
+      result.style.display = "none";
+    }, 1000);
+  }
+}
 function scaleChanger(e) {
   if (!flag) {
     flag = true;
